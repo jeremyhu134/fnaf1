@@ -998,7 +998,7 @@ let gameState = {
                     gameState.animatronics.foxy.afkCheck.remove();
                     gameState.animatronics.foxy.position = 5;
                     gameState.animatronics.foxy.checked = 0;
-                    gameState.power -= (gameState.animatronics.foxy.blocked*5+1);
+                    gameState.power -= (gameState.animatronics.foxy.blocked*3+1);
                     gameState.animatronics.foxy.blocked++;
                     var knock = scene.sound.add('knock', {
                         volume: 1
