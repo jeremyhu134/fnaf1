@@ -30,6 +30,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.spritesheet('foxyJumpscare','images/foxyJumpscare.png',{frameWidth: 630,frameHeight: 700});
         this.load.spritesheet('freddyJumpscare','images/freddyJumpscare.png',{frameWidth: 1300,frameHeight: 700});
         this.load.spritesheet('freddyJumpscare2','images/freddyJumpscare2.png',{frameWidth: 1300,frameHeight: 700});
+        this.load.spritesheet('springtrapJumpscare','images/springtrapJumpscare.png',{frameWidth: 1300,frameHeight: 700});
         
         this.load.spritesheet('rightLight','images/rightLight.png',{frameWidth: 600,frameHeight: 700});
         this.load.spritesheet('leftLight','images/leftLight.png',{frameWidth: 600,frameHeight: 700});
@@ -53,6 +54,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.image('cam2b1c1f0','images/cam2b1c1f0.png');
         this.load.image('cam2b0c1f1','images/cam2b0c1f1.png');
         this.load.image('cam2b1c1f1','images/cam2b1c1f1.png');
+        this.load.image('cam2s1','images/cam2s1.png');
         
         this.load.image('cam3b0','images/cam3b0.png');
         this.load.image('cam3b1','images/cam3b1.png');
@@ -78,19 +80,23 @@ class IntroGameScene extends Phaser.Scene {
         this.load.image('cam8b0f0','images/cam8b0f0.png');
         this.load.image('cam8b1f0','images/cam8b1f0.png');
         this.load.spritesheet('cam8b0f1','images/cam8b0f1.png',{frameWidth: 1300,frameHeight: 700});
+        this.load.image('cam8s1','images/cam8s1.png');
         
         this.load.image('cam9b0','images/cam9b0.png');
         this.load.image('cam9b1','images/cam9b1.png');
+        this.load.image('cam9s1','images/cam9s1.png');
         
         this.load.image('cam10c0f0','images/cam10c0f0.png');
         this.load.image('cam10c1f0','images/cam10c1f0.png');
         this.load.image('cam10c0f1','images/cam10c0f1.png');
         this.load.image('cam10c1f1','images/cam10c1f1.png');
+        this.load.image('cam10s1','images/cam10s1.png');
         
         this.load.image('cam11c0f0','images/cam11c0f0.png');
         this.load.image('cam11c1f0','images/cam11c1f0.png');
         this.load.image('cam11c0f1','images/cam11c0f1.png');
         this.load.image('cam11c1f1','images/cam11c1f1.png');
+        this.load.image('cam11s1','images/cam11s1.png');
         
         
         
@@ -115,6 +121,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.audio('quickRun', 'audio/quickRun.mp3');
         this.load.audio('freddyLaugh', 'audio/freddyLaugh.mp3');
         this.load.audio('scream', 'audio/scream.mp3');
+        this.load.audio('springtrapScream', 'audio/springtrapScream.mp3');
         this.load.audio('foxyRun', 'audio/foxyRun.mp3');
         this.load.audio('knock', 'audio/knock.mp3');
         
@@ -220,10 +227,18 @@ class IntroGameScene extends Phaser.Scene {
         });
         
         this.anims.create({
+            key: 'springtrapJumpscareAction',
+            frames: this.anims.generateFrameNumbers('springtrapJumpscare', { start: 0, end: 3 }),
+            frameRate: 25,
+        });
+        
+        this.anims.create({
             key: 'cam8b0f1Action',
             frames: this.anims.generateFrameNumbers('cam8b0f1', { start: 0, end: 30 }),
             frameRate: 25,
         });
+        
+        gameState.load();
     }
     
     

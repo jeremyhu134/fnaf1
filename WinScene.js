@@ -42,6 +42,7 @@ class WinScene extends Phaser.Scene {
         });
         if(gameState.night < 6){
             gameState.night++;
+            gameState.save();
         }
     }
     

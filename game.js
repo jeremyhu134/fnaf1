@@ -22,7 +22,16 @@ const config = {
 const game = new Phaser.Game(config);
 
 let gameState = {
-    night: 6,
+    night: 1,
+    save:function(){
+        localStorage.setItem("night", gameState.night);  
+    },
+    load:function(){
+        const savedNight = localStorage.getItem("night");
+        if (savedNight !== null) {
+            gameState.night = parseInt(savedNight);
+        }
+    },
     time: 0,
     power: 100,
     usage: 1,
@@ -55,7 +64,9 @@ let gameState = {
         open: function(scene){
             if(gameState.rightLights.on == 0){
                 gameState.rightLights.on = 1;
-                if(gameState.animatronics.chica.position == 0){
+                if(gameState.animatronics.springtrap.position == 100){
+                    gameState.rightLight.setFrame(2);
+                }else if(gameState.animatronics.chica.position == 0){
                     gameState.rightLight.setFrame(1);
                 }else{
                     gameState.rightLight.setFrame(0);
@@ -105,7 +116,9 @@ let gameState = {
         open: function(scene){
             if(gameState.leftLights.on == 0){
                 gameState.leftLights.on = 1;
-                if(gameState.animatronics.bonnie.position == 0){
+                if(gameState.animatronics.springtrap.position == 0){
+                    gameState.leftLight.setFrame(2);
+                }else if(gameState.animatronics.bonnie.position == 0){
                     gameState.leftLight.setFrame(1);
                 }else{
                     gameState.leftLight.setFrame(0);
@@ -171,7 +184,7 @@ let gameState = {
             for(var i = 0; i < cams.length; i++){
                 cams[i].setFrame(0);
             }
-            gameState.cameraStaticBg.setAlpha(0.5);
+            gameState.cameraStaticBg.setAlpha(0.4);
             gameState.cameraGarble.stop();
             cameraSprite.anims.stop();
             if(gameState.camera.position == 1){
@@ -190,7 +203,9 @@ let gameState = {
                 
             }else if(gameState.camera.position == 2){
                 cams[1].setFrame(1);
-                if(gameState.animatronics.bonnie.position == 2 && gameState.animatronics.chica.position == 2 && gameState.animatronics.freddy.position == 2){
+                if(gameState.animatronics.springtrap.position == 2){
+                    cameraSprite.setTexture("cam2s1");
+                }else if(gameState.animatronics.bonnie.position == 2 && gameState.animatronics.chica.position == 2 && gameState.animatronics.freddy.position == 2){
                     cameraSprite.setTexture("cam2b1c1f1");
                 }else if(Math.floor(gameState.animatronics.bonnie.position == 2) && gameState.animatronics.chica.position != 2 && gameState.animatronics.freddy.position != 2){
                     if(gameState.animatronics.bonnie.position == 2.5){
@@ -213,7 +228,9 @@ let gameState = {
                 }
             }else if(gameState.camera.position == 3){
                 cams[2].setFrame(1);
-                if(gameState.animatronics.bonnie.position == 3.5){
+                if(gameState.animatronics.springtrap.position == 3){
+                    cameraSprite.setTexture("cam3s1");
+                }else if(gameState.animatronics.bonnie.position == 3.5){
                     cameraSprite.setTexture("cam3b12");
                 }else if(gameState.animatronics.bonnie.position == 3){
                     cameraSprite.setTexture("cam3b1");
@@ -242,7 +259,7 @@ let gameState = {
                     cameraSprite.setTexture("cam5f2");
                 }else if(gameState.animatronics.foxy.position == 53){
                     cameraSprite.setTexture("cam5f3");
-                }else if(gameState.animatronics.foxy.position == 0){
+                }else if(gameState.animatronics.foxy.position == 0 || gameState.animatronics.foxy.position == -2){
                     cameraSprite.setTexture("cam5f0");
                 }
             }else if(gameState.camera.position == 6){
@@ -250,17 +267,16 @@ let gameState = {
                 cameraSprite.setTexture("cam6");
             }else if(gameState.camera.position == 7){
                 cams[6].setFrame(1);
-                if(gameState.animatronics.foxy.position == 0 && gameState.animatronics.foxy.checked == 0){
-                    gameState.animatronics.foxy.checked = 1;
-                    cameraSprite.setTexture("cam7b0");
-                }else if(gameState.animatronics.bonnie.position != 7){
+                if(gameState.animatronics.bonnie.position != 7){
                     cameraSprite.setTexture("cam7b0");
                 }else if(gameState.animatronics.bonnie.position == 7){
                     cameraSprite.setTexture("cam7b1");
                 }
             }else if(gameState.camera.position == 8){
                 cams[7].setFrame(1);
-                if(gameState.animatronics.foxy.position == 0 && gameState.animatronics.foxy.checked == 0){
+                if(gameState.animatronics.springtrap.position == 8){
+                    cameraSprite.setTexture("cam8s1");
+                }else if(gameState.animatronics.foxy.position == 0 && gameState.animatronics.foxy.checked == 0){
                     cameraSprite.setTexture("cam8b0f1");
                     cameraSprite.anims.play("cam8b0f1Action","true");
                     gameState.animatronics.foxy.checked = 1;
@@ -272,14 +288,18 @@ let gameState = {
                 }
             }else if(gameState.camera.position == 9){
                 cams[8].setFrame(1);
-                if(gameState.animatronics.bonnie.position != 9){
+                if(gameState.animatronics.springtrap.position == 9){
+                    cameraSprite.setTexture("cam9s1");
+                }else if(gameState.animatronics.bonnie.position != 9){
                     cameraSprite.setTexture("cam9b0");
                 }else if(gameState.animatronics.bonnie.position == 9){
                     cameraSprite.setTexture("cam9b1");
                 }
             }else if(gameState.camera.position == 10){
                 cams[9].setFrame(1);
-                if(gameState.animatronics.chica.position != 10 && gameState.animatronics.freddy.position != 10){
+                if(gameState.animatronics.springtrap.position == 10){
+                    cameraSprite.setTexture("cam10s1");
+                }else if(gameState.animatronics.chica.position != 10 && gameState.animatronics.freddy.position != 10){
                     cameraSprite.setTexture("cam10c0f0");
                 }else if(gameState.animatronics.chica.position == 10 && gameState.animatronics.freddy.position != 10){
                     cameraSprite.setTexture("cam10c1f0");
@@ -290,7 +310,9 @@ let gameState = {
                 }
             }else if(gameState.camera.position == 11){
                 cams[10].setFrame(1);
-                if(gameState.animatronics.chica.position != 11 && gameState.animatronics.freddy.position != 11){
+                if(gameState.animatronics.springtrap.position == 11){
+                    cameraSprite.setTexture("cam11s1");
+                }else if(gameState.animatronics.chica.position != 11 && gameState.animatronics.freddy.position != 11){
                     cameraSprite.setTexture("cam11c0f0");
                 }else if(gameState.animatronics.chica.position == 11 && gameState.animatronics.freddy.position != 11){
                     cameraSprite.setTexture("cam11c1f0");
@@ -1029,6 +1051,176 @@ let gameState = {
                 });
             },
         },
+        springtrap:{
+            position: -2,
+            ai: 0,
+            actionLoop: null,
+            activate: function(scene,ai){
+                gameState.animatronics.springtrap.ai = ai;
+                gameState.animatronics.springtrap.actionLoop = scene.time.addEvent({
+                    delay: 2800, 
+                    callback: () => {
+                        gameState.animatronics.springtrap.movement(scene);
+                    },
+                    repeat: -1,
+                    callbackScope: scene 
+                });
+            },
+            movement: function(scene){
+                var rand = Math.ceil(Math.random()*20);
+                if(rand <= gameState.animatronics.springtrap.ai){
+                    if(gameState.camera.position == Math.floor(gameState.animatronics.springtrap.position) && gameState.camera.on == 1){
+                        gameState.cameraStaticBg.setAlpha(1);
+                        gameState.cameraGarble.play();
+                    }
+                    var posRand;
+                    if(gameState.animatronics.springtrap.position == 3){
+                        posRand = Math.ceil(Math.random()*1);
+                        if(posRand == 1){
+                            gameState.animatronics.springtrap.position = 2;
+                        }
+                    }else if(gameState.animatronics.springtrap.position == 2){
+                        posRand = Math.ceil(Math.random()*2);
+                        if(posRand == 1){
+                            gameState.animatronics.springtrap.position = 8;
+                        }else if(posRand == 2){
+                            gameState.animatronics.springtrap.position = 10;
+                        }
+                    }else if(gameState.animatronics.springtrap.position == 8){
+                        posRand = Math.ceil(Math.random()*2);
+                        if(posRand == 1){
+                            gameState.animatronics.springtrap.position = 0;
+                        }else if(posRand == 2){
+                            gameState.animatronics.springtrap.position = 9;
+                        }
+                    }else if(gameState.animatronics.springtrap.position == 10){
+                        posRand = Math.ceil(Math.random()*2);
+                        if(posRand == 1){
+                            gameState.animatronics.springtrap.position = 100;
+                        }else if(posRand == 2){
+                            gameState.animatronics.springtrap.position = 11;
+                        }
+                    }else if(gameState.animatronics.springtrap.position == 11){
+                        if(gameState.rightDoor.on == 1){
+                            posRand = Math.ceil(Math.random()*2);
+                            if(posRand == 1){
+                                gameState.animatronics.springtrap.position = 2;
+                            }else if(posRand == 2){
+                                gameState.animatronics.springtrap.position = 100;
+                            }
+                        }else{
+                            gameState.animatronics.springtrap.position = -1;
+                            gameState.rightDoor.jammed = 1;
+                        }
+                    }
+                    else if(gameState.animatronics.springtrap.position == 9){
+                        if(gameState.leftDoor.on == 1){
+                            posRand = Math.ceil(Math.random()*2);
+                            if(posRand == 1){
+                                gameState.animatronics.springtrap.position = 2;
+                            }else if(posRand == 2){
+                                gameState.animatronics.springtrap.position = 0;
+                            }
+                        }else{
+                            gameState.animatronics.springtrap.position = -1;
+                            gameState.leftDoor.jammed = 1;
+                        }
+                    }
+                    
+                    else if(gameState.animatronics.springtrap.position == 0){
+                        if(gameState.leftDoor.on == 1){
+                            if(gameState.leftLights.on == 1){
+                                gameState.leftLights.close(scene);
+                            }
+                            posRand = Math.ceil(Math.random()*1);
+                            if(posRand == 1){
+                                gameState.animatronics.springtrap.position = 2;
+                            }
+                        }else{
+                            gameState.animatronics.springtrap.position = -1;
+                            gameState.leftDoor.jammed = 1;
+                        }
+                    }else if(gameState.animatronics.springtrap.position == 100){
+                        if(gameState.rightDoor.on == 1){
+                            if(gameState.rightLights.on == 1){
+                                gameState.rightLights.close(scene);
+                            }
+                            posRand = Math.ceil(Math.random()*1);
+                            if(posRand == 1){
+                                gameState.animatronics.springtrap.position = 2;
+                            }
+                        }else{
+                            gameState.animatronics.springtrap.position = -1;
+                            gameState.rightDoor.jammed = 1;
+                        }
+                    }
+                    else if(gameState.animatronics.springtrap.position == -1){
+                        if(gameState.camera.on == 1){
+                            gameState.camera.close(gameState.uiscene);
+                            gameState.cameraButton.destroy();
+                            scene.time.addEvent({
+                                delay: 400, 
+                                callback: () => {
+                                    gameState.animatronics.springtrap.jumpscare(gameState.uiscene);
+                                },
+                                callbackScope: scene 
+                            });
+                        }else{
+                            gameState.animatronics.springtrap.jumpscare(gameState.uiscene);
+                        }
+                    }
+                    if(gameState.camera.position == Math.floor(gameState.animatronics.springtrap.position) && gameState.camera.on == 1){
+                        gameState.cameraStaticBg.setAlpha(1);
+                        gameState.cameraGarble.play();
+                    }
+                    if((Math.floor(gameState.animatronics.springtrap.position) == 0 || gameState.animatronics.springtrap.position == -1 )&& gameState.leftLights.on == 1){
+                        gameState.leftLights.close(scene);
+                    }else if((Math.floor(gameState.animatronics.springtrap.position) == 100 || gameState.animatronics.springtrap.position == -1 )&& gameState.rightLights.on == 1){
+                        gameState.rightLights.close(scene);
+                    }
+                }
+            },
+            jumpscare: function(scene){
+                gameState.cameraButton.destroy();
+                var jumpscare = scene.add.sprite(750,1050,"springtrapJumpscare");
+                
+                scene.tweens.add({
+                    targets: jumpscare, 
+                    y: jumpscare.y - 700,
+                    duration: 150,
+                    ease: 'Linear' 
+                });
+                scene.time.addEvent({
+                    delay: 140, 
+                    callback: () => {
+                        jumpscare.anims.play("springtrapJumpscareAction");
+                        scene.tweens.add({
+                            targets: jumpscare, 
+                            scaleX: jumpscare.scaleX + 4,
+                            scaleY: jumpscare.scaleY + 4,
+                            duration: 500,
+                            ease: 'Linear' 
+                        });
+                    },
+                    callbackScope: scene 
+                });
+                var scream = scene.sound.add('springtrapScream', {
+                    volume: 1
+                });
+                scream.play();
+                scene.time.addEvent({
+                    delay: 700, 
+                    callback: () => {
+                        scream.stop();
+                        gameState.reset(scene);
+                        scene.scene.stop("OfficeUIScene");
+                        scene.scene.stop("ArenaScene");
+                        scene.scene.start("LoseScene");
+                    },
+                    callbackScope: scene 
+                });
+            },
+        },
     },
     
     reset: function(scene){
@@ -1056,10 +1248,16 @@ let gameState = {
         if(gameState.animatronics.foxy.actionLoop){
             gameState.animatronics.foxy.actionLoop.destroy();
         }
+        gameState.animatronics.springtrap.position = -2;
+        if(gameState.animatronics.springtrap.actionLoop){
+            gameState.animatronics.springtrap.actionLoop.destroy();
+        }
         gameState.rightDoor.on = 0;
         gameState.leftDoor.on = 0;
         gameState.rightLight.on = 0;
         gameState.leftLight.on = 0;
+        gameState.rightLight.jammed = 0;
+        gameState.leftLight.jammed = 0;
         gameState.camera.on = 0;
         gameState.camera.position = 1;
         gameState.animatronics.foxy.checked = 0;
