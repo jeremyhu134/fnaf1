@@ -40,6 +40,10 @@ class LoseScene extends Phaser.Scene {
             callbackScope: scene
         });
         
+        if(gameState.night == 6){
+            gameState.night = 5;
+        }
+        
     }
     
     

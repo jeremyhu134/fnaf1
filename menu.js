@@ -100,6 +100,26 @@ class MenuScene extends Phaser.Scene {
             menuArrow.setVisible(false);
         });
         
+        if(gameState.night6Unlock == 1){
+            var night6Button = this.add.text(200, 540, "6th Night", {
+                fontFamily: "FnafFont",
+                fontSize: "32px",
+                color: "#ffffff"
+            }).setInteractive();
+            night6Button.on('pointerdown', () => {
+                gameState.night = 6;
+                this.scene.stop("MenuScene");
+                this.scene.start("NightIntroScene");
+            });
+            night6Button.on('pointerover', () => {
+                menuArrow.setVisible(true);
+                menuArrow.y = 550;
+            });
+            night6Button.on('pointerout', () => {
+                menuArrow.setVisible(false);
+            });
+        }
+        
         
         
         scene.events.once('shutdown', () => {

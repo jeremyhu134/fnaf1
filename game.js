@@ -22,14 +22,19 @@ const config = {
 const game = new Phaser.Game(config);
 
 let gameState = {
-    night: 1,
+    night: 5,
+    night6Unlock: 1,
     save:function(){
         localStorage.setItem("night", gameState.night);  
+        localStorage.setItem("night6", gameState.night6Unlock);  
     },
     load:function(){
         const savedNight = localStorage.getItem("night");
+        const savedNight2 = localStorage.getItem("night6Unlock");
         if (savedNight !== null) {
             gameState.night = parseInt(savedNight);
+        }if (savedNight2 !== null) {
+            gameState.night6Unlock = parseInt(savedNight2);
         }
     },
     time: 0,
@@ -417,10 +422,26 @@ let gameState = {
         gameState.powerDown.play();
         gameState.ambience1.stop();
         gameState.ambience2.stop();
+        if(gameState.night != 6){
+            gameState.animatronics.freddy.blackout(scene);
+        }
         
-        gameState.animatronics.freddy.blackout(scene);
-        gameState.animatronics.bonnie.actionLoop.destroy();
-        gameState.animatronics.chica.actionLoop.destroy();
+        gameState.animatronics.bonnie.position = 1;
+        if(gameState.animatronics.freddy.actionLoop){
+            gameState.animatronics.freddy.actionLoop.destroy();
+        }
+        gameState.animatronics.bonnie.position = 1;
+        if(gameState.animatronics.bonnie.actionLoop){
+            gameState.animatronics.bonnie.actionLoop.destroy();
+        }
+        gameState.animatronics.chica.position = 1;
+        if(gameState.animatronics.chica.actionLoop){
+            gameState.animatronics.chica.actionLoop.destroy();
+        }
+        gameState.animatronics.foxy.position = 5;
+        if(gameState.animatronics.foxy.actionLoop){
+            gameState.animatronics.foxy.actionLoop.destroy();
+        }
     },
     
     animatronics:{
@@ -1067,6 +1088,15 @@ let gameState = {
                 });
             },
             movement: function(scene){
+                var knock = scene.sound.add('knock', {
+                    volume: 1
+                });
+                var scurry = scene.sound.add('springtrapMove', {
+                    volume: 0.1
+                });
+                var sigh = scene.sound.add('springtrapSigh', {
+                    volume: 0.1
+                });
                 var rand = Math.ceil(Math.random()*20);
                 if(rand <= gameState.animatronics.springtrap.ai){
                     if(gameState.camera.position == Math.floor(gameState.animatronics.springtrap.position) && gameState.camera.on == 1){
@@ -1080,6 +1110,7 @@ let gameState = {
                             gameState.animatronics.springtrap.position = 2;
                         }
                     }else if(gameState.animatronics.springtrap.position == 2){
+                        scurry.play();
                         posRand = Math.ceil(Math.random()*2);
                         if(posRand == 1){
                             gameState.animatronics.springtrap.position = 8;
@@ -1102,6 +1133,7 @@ let gameState = {
                         }
                     }else if(gameState.animatronics.springtrap.position == 11){
                         if(gameState.rightDoor.on == 1){
+                            sigh.play();
                             posRand = Math.ceil(Math.random()*2);
                             if(posRand == 1){
                                 gameState.animatronics.springtrap.position = 2;
@@ -1115,6 +1147,7 @@ let gameState = {
                     }
                     else if(gameState.animatronics.springtrap.position == 9){
                         if(gameState.leftDoor.on == 1){
+                            sigh.play();
                             posRand = Math.ceil(Math.random()*2);
                             if(posRand == 1){
                                 gameState.animatronics.springtrap.position = 2;
@@ -1129,12 +1162,32 @@ let gameState = {
                     
                     else if(gameState.animatronics.springtrap.position == 0){
                         if(gameState.leftDoor.on == 1){
+                            knock.play();
+                            scene.time.addEvent({
+                                delay: 300, 
+                                callback: () => {
+                                    knock.stop();
+                                },
+                                callbackScope: scene 
+                            });
+                            knock.play();
+                            scene.time.addEvent({
+                                delay: 300, 
+                                callback: () => {
+                                    knock.stop();
+                                },
+                                callbackScope: scene 
+                            });
                             if(gameState.leftLights.on == 1){
                                 gameState.leftLights.close(scene);
                             }
-                            posRand = Math.ceil(Math.random()*1);
-                            if(posRand == 1){
+                            posRand = Math.ceil(Math.random()*4);
+                            if(posRand == 1 || posRand == 2){
                                 gameState.animatronics.springtrap.position = 2;
+                            }else if(posRand == 3){
+                                gameState.animatronics.springtrap.position = 8;
+                            }else if(posRand == 4){
+                                gameState.animatronics.springtrap.position = 9;
                             }
                         }else{
                             gameState.animatronics.springtrap.position = -1;
@@ -1142,12 +1195,24 @@ let gameState = {
                         }
                     }else if(gameState.animatronics.springtrap.position == 100){
                         if(gameState.rightDoor.on == 1){
+                            knock.play();
+                            scene.time.addEvent({
+                                delay: 300, 
+                                callback: () => {
+                                    knock.stop();
+                                },
+                                callbackScope: scene 
+                            });
                             if(gameState.rightLights.on == 1){
                                 gameState.rightLights.close(scene);
                             }
-                            posRand = Math.ceil(Math.random()*1);
-                            if(posRand == 1){
+                            posRand = Math.ceil(Math.random()*4);
+                            if(posRand == 1 || posRand == 2){
                                 gameState.animatronics.springtrap.position = 2;
+                            }else if(posRand == 3){
+                                gameState.animatronics.springtrap.position = 10;
+                            }else if(posRand == 4){
+                                gameState.animatronics.springtrap.position = 11;
                             }
                         }else{
                             gameState.animatronics.springtrap.position = -1;
@@ -1196,8 +1261,8 @@ let gameState = {
                         jumpscare.anims.play("springtrapJumpscareAction");
                         scene.tweens.add({
                             targets: jumpscare, 
-                            scaleX: jumpscare.scaleX + 4,
-                            scaleY: jumpscare.scaleY + 4,
+                            scaleX: jumpscare.scaleX + 3,
+                            scaleY: jumpscare.scaleY + 3,
                             duration: 500,
                             ease: 'Linear' 
                         });

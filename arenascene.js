@@ -143,6 +143,7 @@ class ArenaScene extends Phaser.Scene {
             gameState.ambience2.stop();
             gameState.lightSound.stop();
             gameState.doorSound.stop();
+            gameState.powerDown.stop();
         });
     }
     

@@ -35,11 +35,18 @@ class OfficeUIScene extends Phaser.Scene {
         gameState.powerBars = this.add.sprite(75,665,"powerBars").setOrigin(0,0);
         
         
-        
+        if(gameState.night == 6){
+            gameState.animatronics.springtrap.activate(scene,16);
+            gameState.animatronics.bonnie.position = -2;
+            gameState.animatronics.chica.position = -2;
+            gameState.animatronics.foxy.position = -2;
+            gameState.animatronics.freddy.position = -2;
+            gameState.animatronics.springtrap.position = 3;
+        }
         scene.time.addEvent({
             delay: 1000, 
             callback: () => {
-                gameState.time++;
+                gameState.time += 1;
                 if(gameState.time == 1 && gameState.power > 0){
                     if(gameState.night == 1){
                         gameState.animatronics.bonnie.activate(scene,1);
@@ -65,12 +72,7 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.chica.activate(scene,8);
                         gameState.animatronics.foxy.activate(scene,8);
                     }else if(gameState.night == 6){
-                        gameState.animatronics.springtrap.activate(scene,18);
-                        gameState.animatronics.bonnie.position = -2;
-                        gameState.animatronics.chica.position = -2;
-                        gameState.animatronics.foxy.position = -2;
-                        gameState.animatronics.freddy.position = -2;
-                        gameState.animatronics.springtrap.position = 3;
+                        
                     }
                 }
                 
@@ -113,6 +115,8 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.chica.ai = 11;
                         gameState.animatronics.foxy.ai = 11;
                         gameState.animatronics.freddy.ai = 11;
+                    }else if(gameState.night == 6){
+                        gameState.animatronics.springtrap.ai = 18;
                     }
                 }
                 
@@ -154,6 +158,8 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.chica.ai = 15;
                         gameState.animatronics.foxy.ai = 15;
                         gameState.animatronics.freddy.ai = 15;
+                    }else if(gameState.night == 6){
+                        gameState.animatronics.springtrap.ai = 19;
                     }
                 }
                 

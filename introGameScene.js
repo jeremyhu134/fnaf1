@@ -124,6 +124,8 @@ class IntroGameScene extends Phaser.Scene {
         this.load.audio('springtrapScream', 'audio/springtrapScream.mp3');
         this.load.audio('foxyRun', 'audio/foxyRun.mp3');
         this.load.audio('knock', 'audio/knock.mp3');
+        this.load.audio('springtrapMove', 'audio/springtrapMove.mp3');
+        this.load.audio('springtrapSigh', 'audio/springtrapSigh.mp3');
         
         this.load.audio('deathStatic', 'audio/deathStatic.mp3');
         
