@@ -22,8 +22,8 @@ const config = {
 const game = new Phaser.Game(config);
 
 let gameState = {
-    night: 5,
-    night6Unlock: 1,
+    night: 1,
+    night6Unlock: 0,
     save:function(){
         localStorage.setItem("night", gameState.night);  
         localStorage.setItem("night6", gameState.night6Unlock);  
