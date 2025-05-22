@@ -47,6 +47,10 @@ class ArenaScene extends Phaser.Scene {
             volume: 0.8
         });
         
+        gameState.breathing = this.sound.add('breathing', {
+            volume: 0.8
+        });
+        
         var jammed = this.sound.add('jammed', {
             volume: 0.8
         });
@@ -144,6 +148,7 @@ class ArenaScene extends Phaser.Scene {
             gameState.lightSound.stop();
             gameState.doorSound.stop();
             gameState.powerDown.stop();
+            gameState.breathing.stop();
         });
     }
     

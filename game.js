@@ -24,17 +24,22 @@ const game = new Phaser.Game(config);
 let gameState = {
     night: 1,
     night6Unlock: 0,
+    night7Unlock: 0,
     save:function(){
         localStorage.setItem("night", gameState.night);  
         localStorage.setItem("night6", gameState.night6Unlock);  
+        localStorage.setItem("night7", gameState.night6Unlock);  
     },
     load:function(){
         const savedNight = localStorage.getItem("night");
         const savedNight2 = localStorage.getItem("night6Unlock");
+        const savedNight3 = localStorage.getItem("night7Unlock");
         if (savedNight !== null) {
             gameState.night = parseInt(savedNight);
         }if (savedNight2 !== null) {
             gameState.night6Unlock = parseInt(savedNight2);
+        }if (savedNight3 !== null) {
+            gameState.night6Unlock = parseInt(savedNight3);
         }
     },
     time: 0,
@@ -145,6 +150,58 @@ let gameState = {
         }
     },
     
+    mask:{
+        moving: 0,
+        on: 0,
+        down: function(scene){
+            gameState.mask.sprite.anims.play("maskDown","true");
+            gameState.cameraButton.setVisible(true);
+            gameState.rightLightButton.setVisible(true);
+            gameState.rightDoorButton.setVisible(true);
+            gameState.leftLightButton.setVisible(true);
+            gameState.leftDoorButton.setVisible(true);
+            gameState.mask.moving = 1;
+            
+            var maskZip = scene.sound.add('maskZip', {
+                volume: 0.8
+            });
+            maskZip.play();
+            gameState.breathing.stop();
+            
+            scene.time.addEvent({
+                delay: 400, 
+                callback: () => {
+                    gameState.mask.moving = 0;
+                    gameState.mask.on = 0;
+                },
+                callbackScope: scene 
+            });
+        },
+        up: function(scene){
+            gameState.mask.sprite.anims.play("maskUp","true");
+            gameState.cameraButton.setVisible(false);
+            gameState.rightLightButton.setVisible(false);
+            gameState.rightDoorButton.setVisible(false);
+            gameState.leftLightButton.setVisible(false);
+            gameState.leftDoorButton.setVisible(false);
+            gameState.mask.moving = 1;
+            gameState.mask.on = 1;
+            
+            var maskZip = scene.sound.add('maskZip', {
+                volume: 0.8
+            });
+            maskZip.play();
+            gameState.breathing.play();
+            scene.time.addEvent({
+                delay: 400, 
+                callback: () => {
+                    gameState.mask.moving = 0;
+                },
+                callbackScope: scene 
+            });
+        },
+    },
+    
     camera:{
         moving: 0,
         on: 0,
@@ -166,6 +223,10 @@ let gameState = {
                 },
                 callbackScope: scene 
             });
+            
+            if(gameState.night == 7){
+                gameState.maskButton.setVisible(false);
+            }
         },
         close: function(scene){
             var cam = scene.add.sprite(0,0,"cameraMonitor").setOrigin(0,0);
@@ -175,9 +236,15 @@ let gameState = {
             scene.scene.stop("CameraScene");
             gameState.usage--;
             gameState.officeNoise.play();
+            if(gameState.animatronics.goldenFreddy.ai > 0 && gameState.power > 0){
+                gameState.animatronics.goldenFreddy.movement(scene);
+            }
             scene.time.addEvent({
                 delay: 400, 
                 callback: () => {
+                    if(gameState.night == 7){
+                        gameState.maskButton.setVisible(true);
+                    }
                     gameState.camera.moving = 0;
                     gameState.camera.on = 0;
                     cam.destroy();
@@ -386,7 +453,7 @@ let gameState = {
     },
     
     deleteUIElements:function(scene){
-        for(var i = 0; i < 6; i++){
+        for(var i = 0; i < gameState.UIElements.length; i++){
             gameState.UIElements[i].destroy();
         }
     },
@@ -410,6 +477,10 @@ let gameState = {
         if(gameState.camera.on){
             gameState.camera.close(scene);
         }
+        if(gameState.mask.on){
+            gameState.mask.down(scene);
+        }
+        gameState.maskButton.destroy();
         
         gameState.rightButtons.destroy();
         gameState.leftButtons.destroy();
@@ -418,6 +489,7 @@ let gameState = {
         gameState.rightLightButton.destroy();
         gameState.leftLightButton.destroy();
         
+        gameState.breathing.stop();
         gameState.officeNoise.stop();
         gameState.powerDown.play();
         gameState.ambience1.stop();
@@ -426,7 +498,7 @@ let gameState = {
             gameState.animatronics.freddy.blackout(scene);
         }
         
-        gameState.animatronics.bonnie.position = 1;
+        gameState.animatronics.freddy.position = 1;
         if(gameState.animatronics.freddy.actionLoop){
             gameState.animatronics.freddy.actionLoop.destroy();
         }
@@ -1060,7 +1132,7 @@ let gameState = {
                 });
                 scream.play();
                 scene.time.addEvent({
-                    delay: 40000, 
+                    delay: 800, 
                     callback: () => {
                         scream.stop();
                         gameState.reset(scene);
@@ -1286,6 +1358,58 @@ let gameState = {
                 });
             },
         },
+        
+        goldenFreddy:{
+            position: 0,
+            ai: 0,
+            actionLoop: null,
+            activate: function(scene,ai){
+                gameState.animatronics.goldenFreddy.ai = ai;
+            },
+            movement: function(scene){
+                var rand = Math.ceil(Math.random()*20);
+                if(rand <= gameState.animatronics.goldenFreddy.ai && gameState.animatronics.goldenFreddy.position == 0){
+                    gameState.animatronics.goldenFreddy.position == 1;
+                    var gFreddy = gameState.officeScene.add.sprite(300,200,"goldenFreddy").setOrigin(0,0);
+                    scene.tweens.add({
+                        targets: gFreddy,
+                        alpha: { from: 1, to: 0.1 },
+                        duration: 2000,
+                    });
+                    scene.time.addEvent({
+                        delay: 2000, 
+                        callback: () => {
+                            if(gameState.mask.on == 0){
+                                gameState.animatronics.goldenFreddy.jumpscare(gameState.uiscene);
+                            }else{
+                                gameState.animatronics.goldenFreddy.position = 0;
+                                gFreddy.destroy();
+                            }
+                        },
+                        callbackScope: scene 
+                    });
+                }
+            },
+            jumpscare: function(scene){
+                gameState.deleteUIElements(scene);
+                gameState.uiscene.add.sprite(0,0,"goldenFreddyJumpscare").setOrigin(0,0);
+                var scream = scene.sound.add('goldenFreddyScream', {
+                    volume: 1
+                });
+                scream.play();
+                scene.time.addEvent({
+                    delay: 2000, 
+                    callback: () => {
+                        scream.stop();
+                        gameState.reset(scene);
+                        scene.scene.stop("OfficeUIScene");
+                        scene.scene.stop("ArenaScene");
+                        scene.scene.start("LoseScene");
+                    },
+                    callbackScope: scene 
+                });
+            },
+        },
     },
     
     reset: function(scene){
@@ -1297,26 +1421,39 @@ let gameState = {
         gameState.power = 100;
         gameState.time = 0;
         gameState.usage = 1;
+        
         gameState.animatronics.freddy.position = 1;
+        gameState.animatronics.freddy.ai = 0;
         if(gameState.animatronics.freddy.actionLoop){
             gameState.animatronics.freddy.actionLoop.destroy();
         }
+        
+        gameState.animatronics.bonnie.ai = 0;
         gameState.animatronics.bonnie.position = 1;
         if(gameState.animatronics.bonnie.actionLoop){
             gameState.animatronics.bonnie.actionLoop.destroy();
         }
+        
+        gameState.animatronics.chica.ai = 0;
         gameState.animatronics.chica.position = 1;
         if(gameState.animatronics.chica.actionLoop){
             gameState.animatronics.chica.actionLoop.destroy();
         }
+        
+        gameState.animatronics.foxy.ai = 0;
         gameState.animatronics.foxy.position = 5;
         if(gameState.animatronics.foxy.actionLoop){
             gameState.animatronics.foxy.actionLoop.destroy();
         }
+        
+        gameState.animatronics.springtrap.ai = 0;
         gameState.animatronics.springtrap.position = -2;
         if(gameState.animatronics.springtrap.actionLoop){
             gameState.animatronics.springtrap.actionLoop.destroy();
         }
+        gameState.animatronics.goldenFreddy.ai = 0;
+        gameState.animatronics.goldenFreddy.position = 0;
+        
         gameState.rightDoor.on = 0;
         gameState.leftDoor.on = 0;
         gameState.rightLight.on = 0;
@@ -1328,6 +1465,9 @@ let gameState = {
         gameState.animatronics.foxy.checked = 0;
         gameState.animatronics.foxy.stalled = 0;
         gameState.animatronics.foxy.blocked = 0;
+        
+        gameState.mask.moving = 0;
+        gameState.mask.on = 0;
     },
 }
 

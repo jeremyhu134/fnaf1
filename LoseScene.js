@@ -42,6 +42,8 @@ class LoseScene extends Phaser.Scene {
         
         if(gameState.night == 6){
             gameState.night = 5;
+        }else if(gameState.night == 7){
+            gameState.night = 5;
         }
         
     }

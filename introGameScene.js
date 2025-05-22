@@ -36,6 +36,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.spritesheet('leftLight','images/leftLight.png',{frameWidth: 600,frameHeight: 700});
         
         //Camera Sprites
+        this.load.image('maskButton','images/maskButton.png');
         this.load.image('cameraButton','images/cameraButton.png');
         this.load.image('cameraMap','images/cameraMap.png');
         
@@ -98,7 +99,9 @@ class IntroGameScene extends Phaser.Scene {
         this.load.image('cam11c1f1','images/cam11c1f1.png');
         this.load.image('cam11s1','images/cam11s1.png');
         
-        
+        this.load.spritesheet('mask','images/mask.png',{frameWidth: 1300,frameHeight: 700});
+        this.load.image('goldenFreddy','images/goldenFreddy.png');
+        this.load.image('goldenFreddyJumpscare','images/goldenFreddyJumpscare.png');
         
         this.load.image('6amAnim','images/6amAnim.png');
         
@@ -116,10 +119,14 @@ class IntroGameScene extends Phaser.Scene {
         this.load.audio('doorSound', 'audio/doorSound.mp3');
         this.load.audio('officeAmbience', 'audio/officeAmbience.mp3');
         
+        this.load.audio('breathing', 'audio/breathing.mp3');
+        this.load.audio('maskZip', 'audio/maskZip.mp3');
+        
         this.load.audio('powerDown', 'audio/powerDown.mp3');
         this.load.audio('freddyMusic', 'audio/freddyMusic.mp3');
         this.load.audio('quickRun', 'audio/quickRun.mp3');
         this.load.audio('freddyLaugh', 'audio/freddyLaugh.mp3');
+        this.load.audio('goldenFreddyScream', 'audio/goldenFreddyScream.mp3');
         this.load.audio('scream', 'audio/scream.mp3');
         this.load.audio('springtrapScream', 'audio/springtrapScream.mp3');
         this.load.audio('foxyRun', 'audio/foxyRun.mp3');
@@ -237,6 +244,17 @@ class IntroGameScene extends Phaser.Scene {
         this.anims.create({
             key: 'cam8b0f1Action',
             frames: this.anims.generateFrameNumbers('cam8b0f1', { start: 0, end: 30 }),
+            frameRate: 25,
+        });
+        
+        this.anims.create({
+            key: 'maskDown',
+            frames: this.anims.generateFrameNumbers('mask', { start: 0, end: 8 }),
+            frameRate: 25,
+        });
+        this.anims.create({
+            key: 'maskUp',
+            frames: this.anims.generateFrameNumbers('mask', { start: 9, end: 17 }),
             frameRate: 25,
         });
         

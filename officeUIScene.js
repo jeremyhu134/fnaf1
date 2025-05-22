@@ -71,8 +71,12 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.bonnie.activate(scene,8);
                         gameState.animatronics.chica.activate(scene,8);
                         gameState.animatronics.foxy.activate(scene,8);
-                    }else if(gameState.night == 6){
-                        
+                    }else if(gameState.night == 7){
+                        gameState.animatronics.goldenFreddy.activate(scene,0);
+                        gameState.animatronics.freddy.activate(scene,20);
+                        gameState.animatronics.bonnie.activate(scene,20);
+                        gameState.animatronics.chica.activate(scene,20);
+                        gameState.animatronics.foxy.activate(scene,20);
                     }
                 }
                 
@@ -94,6 +98,8 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.chica.ai = 9;
                         gameState.animatronics.foxy.ai = 9;
                         gameState.animatronics.freddy.ai = 9;
+                    }else if(gameState.night == 7){
+                        gameState.animatronics.goldenFreddy.ai = 4;
                     }
                 }
                 
@@ -117,6 +123,8 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.freddy.ai = 11;
                     }else if(gameState.night == 6){
                         gameState.animatronics.springtrap.ai = 18;
+                    }else if(gameState.night == 7){
+                        gameState.animatronics.goldenFreddy.ai = 5;
                     }
                 }
                 
@@ -160,6 +168,8 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.freddy.ai = 15;
                     }else if(gameState.night == 6){
                         gameState.animatronics.springtrap.ai = 19;
+                    }else if(gameState.night == 7){
+                        gameState.animatronics.goldenFreddy.ai = 8;
                     }
                 }
                 
@@ -181,6 +191,8 @@ class OfficeUIScene extends Phaser.Scene {
                         gameState.animatronics.chica.ai = 18;
                         gameState.animatronics.foxy.ai = 18;
                         gameState.animatronics.freddy.ai = 18;
+                    }else if(gameState.night == 7){
+                        gameState.animatronics.goldenFreddy.ai = 10;
                     }
                 }
                 
@@ -230,7 +242,27 @@ class OfficeUIScene extends Phaser.Scene {
             }
         });
         
+        
+        
+        
         gameState.UIElements = [timeText,nightText,powerText,usageText,gameState.cameraButton,gameState.powerBars];
+        
+        if(gameState.night == 7){
+            gameState.mask.sprite = this.add.sprite(0,0,"mask").setOrigin(0,0);
+            gameState.mask.sprite.setFrame(8);
+            gameState.maskButton = this.add.sprite(1030,660,"maskButton").setOrigin(0.5,0.5).setInteractive();
+            gameState.cameraButton.x = 460;
+            gameState.maskButton.on('pointerover', () => {
+                if(gameState.mask.moving == 0){
+                    if(gameState.mask.on == 0){
+                        gameState.mask.up(scene);
+                    }else {
+                        gameState.mask.down(scene);
+                    }
+                }
+            });
+            gameState.UIElements.push(gameState.maskButton);
+        }
     }
     
     

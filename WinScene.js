@@ -41,13 +41,16 @@ class WinScene extends Phaser.Scene {
             callbackScope: scene 
         });
         if(gameState.night < 5){
-            gameState.night++;
-            gameState.save();
+            gameState.night++; 
         }else if (gameState.night == 5){
             gameState.night6Unlock = 1;
         }else if(gameState.night == 6){
             gameState.night = 5;
+            gameState.night7Unlock = 1;
+        }else if(gameState.night == 7){
+            gameState.night = 5;
         }
+        gameState.save();
     }
     
     
