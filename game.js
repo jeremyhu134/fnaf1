@@ -211,6 +211,10 @@ let gameState = {
             cam.anims.play("cameraMonitorOpenAction","true");
             gameState.camera.moving = 1;
             gameState.cameraFlip.play();
+            gameState.rightLightButton.setVisible(false);
+            gameState.rightDoorButton.setVisible(false);
+            gameState.leftLightButton.setVisible(false);
+            gameState.leftDoorButton.setVisible(false);
             scene.time.addEvent({
                 delay: 400, 
                 callback: () => {
@@ -234,6 +238,10 @@ let gameState = {
             gameState.camera.moving = 1;
             gameState.cameraFlip.play();
             scene.scene.stop("CameraScene");
+            gameState.rightLightButton.setVisible(true);
+            gameState.rightDoorButton.setVisible(true);
+            gameState.leftLightButton.setVisible(true);
+            gameState.leftDoorButton.setVisible(true);
             gameState.usage--;
             gameState.officeNoise.play();
             if(gameState.animatronics.goldenFreddy.ai > 0 && gameState.power > 0){
