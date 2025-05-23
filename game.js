@@ -488,7 +488,9 @@ let gameState = {
         if(gameState.mask.on){
             gameState.mask.down(scene);
         }
-        gameState.maskButton.destroy();
+        if(gameState.maskButton){
+            gameState.maskButton.destroy();
+        }
         
         gameState.rightButtons.destroy();
         gameState.leftButtons.destroy();
