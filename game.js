@@ -78,6 +78,13 @@ let gameState = {
                     gameState.rightLight.setFrame(2);
                 }else if(gameState.animatronics.chica.position == 0){
                     gameState.rightLight.setFrame(1);
+                    if(gameState.animatronics.chica.seen == 0){
+                        var scare = scene.sound.add('windowScare', {
+                            volume: 0.8
+                        });
+                        scare.play();
+                        gameState.animatronics.chica.seen = 1;
+                    }
                 }else{
                     gameState.rightLight.setFrame(0);
                 }
@@ -130,6 +137,13 @@ let gameState = {
                     gameState.leftLight.setFrame(2);
                 }else if(gameState.animatronics.bonnie.position == 0){
                     gameState.leftLight.setFrame(1);
+                    if(gameState.animatronics.bonnie.seen == 0){
+                        var scare = scene.sound.add('windowScare', {
+                            volume: 0.8
+                        });
+                        scare.play();
+                        gameState.animatronics.bonnie.seen = 1;
+                    }
                 }else{
                     gameState.leftLight.setFrame(0);
                 }
@@ -524,6 +538,9 @@ let gameState = {
         if(gameState.animatronics.foxy.actionLoop){
             gameState.animatronics.foxy.actionLoop.destroy();
         }
+        if(gameState.animatronics.foxy.afkCheck){
+            gameState.animatronics.foxy.actionLoop.destroy();
+        }
     },
     
     animatronics:{
@@ -737,6 +754,7 @@ let gameState = {
         },
         bonnie:{
             position: 1,
+            seen: 0,
             ai: 0,
             actionLoop: null,
             activate: function(scene,ai){
@@ -820,6 +838,7 @@ let gameState = {
                             if(posRand == 1){
                                 gameState.animatronics.bonnie.position = 2;
                             }
+                            gameState.bonnie.seen = 0;
                         }else{
                             gameState.animatronics.bonnie.position = -1;
                             gameState.leftDoor.jammed = 1;
@@ -892,6 +911,7 @@ let gameState = {
         chica:{
             position: 1,
             ai: 0,
+            seen: 0,
             actionLoop: null,
             activate: function(scene,ai){
                 gameState.animatronics.chica.ai = ai;
@@ -965,6 +985,7 @@ let gameState = {
                             if(posRand == 1){
                                 gameState.animatronics.chica.position = 10;
                             }
+                            gameState.chica.seen = 0;
                         }else{
                             gameState.animatronics.chica.position = -1;
                             gameState.rightDoor.jammed = 1;
@@ -1047,7 +1068,6 @@ let gameState = {
                 gameState.animatronics.foxy.actionLoop = scene.time.addEvent({
                     delay: 5200, 
                     callback: () => {
-                        console.log(`${gameState.animatronics.foxy.stalled}`);
                         gameState.animatronics.foxy.movement(scene);
                     },
                     repeat: -1,
@@ -1368,7 +1388,6 @@ let gameState = {
                 });
             },
         },
-        
         goldenFreddy:{
             position: 0,
             ai: 0,
@@ -1423,6 +1442,8 @@ let gameState = {
     },
     
     reset: function(scene){
+        gameState.animatronics.bonnie.seen = 0;
+        gameState.chica.seen = 0;
         gameState.officeNoise.stop();
         gameState.ambience1.stop();
         gameState.ambience2.stop();
@@ -1453,6 +1474,9 @@ let gameState = {
         gameState.animatronics.foxy.ai = 0;
         gameState.animatronics.foxy.position = 5;
         if(gameState.animatronics.foxy.actionLoop){
+            gameState.animatronics.foxy.actionLoop.destroy();
+        }
+        if(gameState.animatronics.foxy.afkCheck){
             gameState.animatronics.foxy.actionLoop.destroy();
         }
         

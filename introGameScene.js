@@ -39,6 +39,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.image('maskButton','images/maskButton.png');
         this.load.image('cameraButton','images/cameraButton.png');
         this.load.image('cameraMap','images/cameraMap.png');
+        this.load.image('muteButton','images/muteButton.png');
         
         this.load.image('cam1b0c0f0','images/cam1b0c0f0.png');
         this.load.image('cam1b0c1f1','images/cam1b0c1f1.png');
@@ -99,6 +100,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.image('cam11c1f1','images/cam11c1f1.png');
         this.load.image('cam11s1','images/cam11s1.png');
         
+        
         this.load.spritesheet('mask','images/mask.png',{frameWidth: 1300,frameHeight: 700});
         this.load.image('goldenFreddy','images/goldenFreddy.png');
         this.load.image('goldenFreddyJumpscare','images/goldenFreddyJumpscare.png');
@@ -119,8 +121,16 @@ class IntroGameScene extends Phaser.Scene {
         this.load.audio('doorSound', 'audio/doorSound.mp3');
         this.load.audio('officeAmbience', 'audio/officeAmbience.mp3');
         
+        this.load.audio('phonecall1', 'audio/phonecall1.mp3');
+        this.load.audio('phonecall2', 'audio/phonecall2.mp3');
+        this.load.audio('phonecall3', 'audio/phonecall3.mp3');
+        this.load.audio('phonecall4', 'audio/phonecall4.mp3');
+        this.load.audio('phonecall5', 'audio/phonecall5.mp3');
+        
         this.load.audio('breathing', 'audio/breathing.mp3');
         this.load.audio('maskZip', 'audio/maskZip.mp3');
+        
+        this.load.audio('windowScare', 'audio/windowScare.mp3');
         
         this.load.audio('powerDown', 'audio/powerDown.mp3');
         this.load.audio('freddyMusic', 'audio/freddyMusic.mp3');

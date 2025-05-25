@@ -35,6 +35,36 @@ class OfficeUIScene extends Phaser.Scene {
         gameState.powerBars = this.add.sprite(75,665,"powerBars").setOrigin(0,0);
         
         
+        var phonecall;
+        if(gameState.night == 1){
+            phonecall = this.sound.add('phonecall1', {
+                volume: 0.6
+            });
+        }else if(gameState.night == 2){
+            phonecall = this.sound.add('phonecall2', {
+                volume: 0.6
+            });
+        }else if(gameState.night == 3){
+            phonecall = this.sound.add('phonecall3', {
+                volume: 0.6
+            });
+        }else if(gameState.night == 4){
+            phonecall = this.sound.add('phonecall4', {
+                volume: 0.6
+            });
+        }else if(gameState.night == 5){
+            phonecall = this.sound.add('phonecall5', {
+                volume: 0.6
+            });
+        }
+        phonecall.play();
+        var muteButton = this.add.sprite(10,10,"muteButton").setOrigin(0,0).setScale(1).setInteractive().setDepth(3);
+        muteButton.on('pointerdown', () => {
+            phonecall.stop();
+            muteButton.destroy();
+        });
+        
+        
         if(gameState.night == 6){
             gameState.animatronics.springtrap.activate(scene,16);
             gameState.animatronics.bonnie.position = -2;

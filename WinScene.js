@@ -51,6 +51,7 @@ class WinScene extends Phaser.Scene {
             gameState.night = 5;
         }
         gameState.save();
+        gameState.reset();
     }
     
     

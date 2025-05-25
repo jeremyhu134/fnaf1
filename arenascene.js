@@ -55,6 +55,8 @@ class ArenaScene extends Phaser.Scene {
             volume: 0.8
         });
         
+        
+        
         gameState.officeBg = this.add.sprite(0,0,"officeBg").setOrigin(0,0);
         
         gameState.fan = this.add.sprite(779,294,"officeFan").setOrigin(0,0).setScale(0.97);
@@ -153,11 +155,13 @@ class ArenaScene extends Phaser.Scene {
     }
     
     
-    update(){
-        if(gameState.mouse.x < 300){
-            gameState.gameCamera.scrollX -= 10;
-        }else if(gameState.mouse.x > 1000){
-            gameState.gameCamera.scrollX += 10;
+    update(time, delta){
+        const scrollSpeed = 0.7 * delta; // Adjust 0.5 for desired speed
+
+        if (gameState.mouse.x < 300) {
+            gameState.gameCamera.scrollX -= scrollSpeed;
+        } else if (gameState.mouse.x > 1000) {
+            gameState.gameCamera.scrollX += scrollSpeed;
         }
     }
 }
