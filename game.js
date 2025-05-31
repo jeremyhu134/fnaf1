@@ -838,7 +838,7 @@ let gameState = {
                             if(posRand == 1){
                                 gameState.animatronics.bonnie.position = 2;
                             }
-                            gameState.bonnie.seen = 0;
+                            gameState.animatronics.bonnie.seen = 0;
                         }else{
                             gameState.animatronics.bonnie.position = -1;
                             gameState.leftDoor.jammed = 1;
@@ -985,7 +985,7 @@ let gameState = {
                             if(posRand == 1){
                                 gameState.animatronics.chica.position = 10;
                             }
-                            gameState.chica.seen = 0;
+                            gameState.animatronics.chica.seen = 0;
                         }else{
                             gameState.animatronics.chica.position = -1;
                             gameState.rightDoor.jammed = 1;
