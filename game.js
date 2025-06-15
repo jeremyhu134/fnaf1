@@ -1443,7 +1443,7 @@ let gameState = {
     
     reset: function(scene){
         gameState.animatronics.bonnie.seen = 0;
-        gameState.chica.seen = 0;
+        gameState.animatronics.chica.seen = 0;
         gameState.officeNoise.stop();
         gameState.ambience1.stop();
         gameState.ambience2.stop();

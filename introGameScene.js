@@ -46,6 +46,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.image('cam1b1c0f1','images/cam1b1c0f1.png');
         this.load.image('cam1b0c0f1','images/cam1b0c0f1.png');
         this.load.image('cam1b1c1f1','images/cam1b1c1f1.png');
+        this.load.image('cam1text','images/cam1text.png');
         
         this.load.image('cam2b0c0f0','images/cam2b0c0f0.png');
         this.load.image('cam2b1c0f0','images/cam2b1c0f0.png');
@@ -57,48 +58,58 @@ class IntroGameScene extends Phaser.Scene {
         this.load.image('cam2b0c1f1','images/cam2b0c1f1.png');
         this.load.image('cam2b1c1f1','images/cam2b1c1f1.png');
         this.load.image('cam2s1','images/cam2s1.png');
+        this.load.image('cam2text','images/cam2text.png');
         
         this.load.image('cam3b0','images/cam3b0.png');
         this.load.image('cam3b1','images/cam3b1.png');
         this.load.image('cam3b12','images/cam3b12.png');
         this.load.image('cam3s1','images/cam3s1.png');
+        this.load.image('cam3text','images/cam3text.png');
         
         this.load.image('cam4c0f0','images/cam4c0f0.png');
         this.load.image('cam4c1f0','images/cam4c1f0.png');
         this.load.image('cam4c12f0','images/cam4c12f0.png');
         this.load.image('cam4c0f1','images/cam4c0f1.png');
         this.load.image('cam4c1f1','images/cam4c1f1.png');
+        this.load.image('cam4text','images/cam4text.png');
         
         this.load.image('cam5f0','images/cam5f0.png');
         this.load.image('cam5f1','images/cam5f1.png');
         this.load.image('cam5f2','images/cam5f2.png');
         this.load.image('cam5f3','images/cam5f3.png');
+        this.load.image('cam5text','images/cam5text.png');
         
         this.load.image('cam6','images/cam6.png');
+        this.load.image('cam6text','images/cam6text.png');
         
         this.load.image('cam7b0','images/cam7b0.png');
         this.load.image('cam7b1','images/cam7b1.png');
+        this.load.image('cam7text','images/cam7text.png');
         
         this.load.image('cam8b0f0','images/cam8b0f0.png');
         this.load.image('cam8b1f0','images/cam8b1f0.png');
         this.load.spritesheet('cam8b0f1','images/cam8b0f1.png',{frameWidth: 1300,frameHeight: 700});
         this.load.image('cam8s1','images/cam8s1.png');
+        this.load.image('cam8text','images/cam8text.png');
         
         this.load.image('cam9b0','images/cam9b0.png');
         this.load.image('cam9b1','images/cam9b1.png');
         this.load.image('cam9s1','images/cam9s1.png');
+        this.load.image('cam9text','images/cam9text.png');
         
         this.load.image('cam10c0f0','images/cam10c0f0.png');
         this.load.image('cam10c1f0','images/cam10c1f0.png');
         this.load.image('cam10c0f1','images/cam10c0f1.png');
         this.load.image('cam10c1f1','images/cam10c1f1.png');
         this.load.image('cam10s1','images/cam10s1.png');
+        this.load.image('cam10text','images/cam10text.png');
         
         this.load.image('cam11c0f0','images/cam11c0f0.png');
         this.load.image('cam11c1f0','images/cam11c1f0.png');
         this.load.image('cam11c0f1','images/cam11c0f1.png');
         this.load.image('cam11c1f1','images/cam11c1f1.png');
         this.load.image('cam11s1','images/cam11s1.png');
+        this.load.image('cam11text','images/cam11text.png');
         
         
         this.load.spritesheet('mask','images/mask.png',{frameWidth: 1300,frameHeight: 700});
