@@ -27,8 +27,8 @@ let gameState = {
     night7Unlock: 0,
     save:function(){
         localStorage.setItem("night", gameState.night);  
-        localStorage.setItem("night6", gameState.night6Unlock);  
-        localStorage.setItem("night7", gameState.night6Unlock);  
+        localStorage.setItem("night6Unlock", gameState.night6Unlock);  
+        localStorage.setItem("night7Unlock", gameState.night6Unlock);  
     },
     load:function(){
         const savedNight = localStorage.getItem("night");
