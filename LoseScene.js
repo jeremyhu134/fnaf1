@@ -8,7 +8,7 @@ class LoseScene extends Phaser.Scene {
     create(){
         var scene = this;
         
-        this.add.image(0,0,"gameoverBg").setOrigin(0,0);
+        this.add.image(0,0,"gameOverBg").setOrigin(0,0);
         var staticBg = this.add.sprite(0,0,'static').setOrigin(0,0).setDepth(1);
         staticBg.anims.play("staticAction","true");
         staticBg.setAlpha(0.5);

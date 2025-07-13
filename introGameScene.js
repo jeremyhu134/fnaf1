@@ -120,7 +120,7 @@ class IntroGameScene extends Phaser.Scene {
         
         this.load.image('freddyPowerout','images/freddyPowerout.png');
         
-        this.load.image('gameoverBg','images/gameoverBg.png');
+        this.load.image('gameOverBg','images/gameOverBg.png');
         //Audio
         this.load.audio('menuMusic', 'audio/menuMusic.mp3');
         this.load.audio('night1PhoneCall', 'audio/night1PhoneCall.mp3');
