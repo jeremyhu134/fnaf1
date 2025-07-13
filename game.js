@@ -1490,6 +1490,8 @@ let gameState = {
         
         gameState.rightDoor.on = 0;
         gameState.leftDoor.on = 0;
+        gameState.rightDoor.jammed = 0;
+        gameState.leftDoor.jammed = 0;
         gameState.rightLight.on = 0;
         gameState.leftLight.on = 0;
         gameState.rightLight.jammed = 0;
