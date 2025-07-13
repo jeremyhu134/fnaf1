@@ -57,7 +57,9 @@ class OfficeUIScene extends Phaser.Scene {
                 volume: 0.6
             });
         }
-        phonecall.play();
+        if(gameState.night != 6 && gameState.night != 7){
+            phonecall.play();
+        }
         var muteButton = this.add.sprite(10,10,"muteButton").setOrigin(0,0).setScale(1).setInteractive().setDepth(3);
         muteButton.on('pointerdown', () => {
             phonecall.stop();
