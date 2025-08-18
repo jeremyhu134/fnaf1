@@ -3,6 +3,56 @@ class IntroGameScene extends Phaser.Scene {
 		super({ key: 'IntroGameScene' })
 	}
     preload(){
+        const { width, height } = this.cameras.main;
+
+        // --- Loading bar graphics ---
+        let progressBox = this.add.graphics();
+        let progressBar = this.add.graphics();
+
+        const barWidth = 320;
+        const barHeight = 50;
+        const barX = (width / 2) - (barWidth / 2);
+        const barY = (height / 2) - (barHeight / 2);
+
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(barX, barY, barWidth, barHeight);
+
+        let loadingText = this.add.text(width / 2, height / 2 - 70, 'Loading...', {
+            font: '20px monospace',
+            fill: '#ffffff'
+        }).setOrigin(0.5);
+
+        let percentText = this.add.text(width / 2, height / 2, '0%', {
+            font: '18px monospace',
+            fill: '#000000'
+        }).setOrigin(0.5);
+
+        let assetText = this.add.text(width / 2, height / 2 + 70, '', {
+            font: '18px monospace',
+            fill: '#ffffff'
+        }).setOrigin(0.5);
+
+        this.load.on('progress', (value) => {
+            percentText.setText(parseInt(value * 100) + '%');
+
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(barX + 10, barY + 10, (barWidth - 20) * value, barHeight - 20);
+        });
+
+        this.load.on('fileprogress', (file) => {
+            assetText.setText('Loading asset: ' + file.key);
+        });
+
+        this.load.on('complete', () => {
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+            assetText.destroy();
+        });
+        
+        
         this.load.image('menu','images/menu.png');
         this.load.image('menu2','images/menu2.png');
         this.load.image('menu3','images/menu3.png');
@@ -161,6 +211,7 @@ class IntroGameScene extends Phaser.Scene {
         this.load.audio('jammed', 'audio/jammed.mp3');
         this.load.audio('ambience1', 'audio/ambience1.mp3');
         this.load.audio('ambience2', 'audio/ambience2.mp3');
+       
     }
     create(){
         var scene = this;
