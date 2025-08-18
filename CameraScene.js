@@ -25,37 +25,37 @@ class CameraScene extends Phaser.Scene {
         gameState.leftLights.close(scene);
         
         var cam1 = this.add.sprite(1000,325,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam1text = this.add.sprite(1000,325,"cam1text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam1text = this.add.sprite(1005,330,"cam1text").setOrigin(0,0).setDepth(2);
         
         var cam2 = this.add.sprite(970,375,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam2text = this.add.sprite(1000,325,"cam2text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam2text = this.add.sprite(975,380,"cam2text").setOrigin(0,0).setDepth(2);
         
         var cam3 = this.add.sprite(880,400,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam3text = this.add.sprite(1000,325,"cam3text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam3text = this.add.sprite(885,405,"cam3text").setOrigin(0,0).setDepth(2);
         
         var cam4 = this.add.sprite(1225,400,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam4text = this.add.sprite(1000,325,"cam4text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam4text = this.add.sprite(1230,405,"cam4text").setOrigin(0,0).setDepth(2);
         
         var cam5 = this.add.sprite(945,450,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam5text = this.add.sprite(1000,325,"cam5text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam5text = this.add.sprite(950,455,"cam5text").setOrigin(0,0).setDepth(2);
         
         var cam6 = this.add.sprite(1215,535,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam6text = this.add.sprite(1000,325,"cam6text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam6text = this.add.sprite(1220,540,"cam6text").setOrigin(0,0).setDepth(2);
         
         var cam7 = this.add.sprite(925,535,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam7text = this.add.sprite(1000,325,"cam7text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam7text = this.add.sprite(930,540,"cam7text").setOrigin(0,0).setDepth(2);
         
         var cam8 = this.add.sprite(1005,575,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam8text = this.add.sprite(1000,325,"cam8text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam8text = this.add.sprite(1010,580,"cam8text").setOrigin(0,0).setDepth(2);
         
         var cam9 = this.add.sprite(1005,617,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam9text = this.add.sprite(1000,325,"cam9text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam9text = this.add.sprite(1010,622,"cam9text").setOrigin(0,0).setDepth(2);
         
         var cam10 = this.add.sprite(1110,575,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam10text = this.add.sprite(1000,325,"cam10text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam10text = this.add.sprite(1115,580,"cam10text").setOrigin(0,0).setDepth(2);
         
         var cam11 = this.add.sprite(1110,617,"cameraSelect").setOrigin(0,0).setDepth(2).setInteractive();
-        var cam11text = this.add.sprite(1000,325,"cam11text").setOrigin(0,0).setDepth(2).setInteractive();
+        var cam11text = this.add.sprite(1115,622,"cam11text").setOrigin(0,0).setDepth(2);
         
         var cams = [cam1,cam2,cam3,cam4,cam5,cam6,cam7,cam8,cam9,cam10,cam11];
         gameState.camera.refresh(scene,cameraView,cams);
