@@ -26,14 +26,18 @@ let gameState = {
     night6Unlock: 0,
     night7Unlock: 0,
     save:function(){
-        localStorage.setItem("night", gameState.night);  
-        localStorage.setItem("night6Unlock", gameState.night6Unlock);  
-        localStorage.setItem("night7Unlock", gameState.night6Unlock);  
+        gameState.thingsToSave = {
+            night: gameState.night,
+            night6Unlock: gameState.night6Unlock,
+            night7Unlock: gameState.night7Unlock,
+        }
+        localStorage.setItem("thingsToSave_F1", gameState.thingsToSave); 
     },
     load:function(){
-        const savedNight = localStorage.getItem("night");
-        const savedNight2 = localStorage.getItem("night6Unlock");
-        const savedNight3 = localStorage.getItem("night7Unlock");
+        gameState.thingsToSave = localStorage.getItem("thingsToSave_F1");
+        const savedNight = gameState.thingsToSave ? JSON.parse(gameState.thingsToSave).night : null;
+        const savedNight2 = gameState.thingsToSave ? JSON.parse(gameState.thingsToSave).night6Unlock : null;
+        const savedNight3 = gameState.thingsToSave ? JSON.parse(gameState.thingsToSave).night7Unlock : null;
         if (savedNight !== null) {
             gameState.night = parseInt(savedNight);
         }if (savedNight2 !== null) {
